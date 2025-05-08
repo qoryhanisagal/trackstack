@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Issues{% endblock title %}
+
+{% block content %}
+<h1 class="mb-4">Issue Board</h1>
+
+<!-- New Issue Button -->
+<div class="d-flex justify-content-end">
+  <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createIssueModal">
+    + New Issue
+  </button>
+</div>
+
+<!-- Kanban Columns -->
+<div class="row overflow-auto" style="white-space: nowrap;">
+  {% for label, column in columns %}
+    <div class="col-sm-2 bg-dark mx-2 p-2 rounded" style="min-width: 200px;">
+      <h5 class="text-light">{{ label }}</h5>
+      {% if column %}
+        {% for issue in column %}
+          <div class="card mb-2 bg-secondary text-light">
+            <div class="card-body p-2">
+              <h6 class="card-title">{{ issue.title }}</h6>
+              {% if issue.description %}
+                <p class="card-text small">{{ issue.description|truncatechars:100 }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="text-muted small">No items</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Create Issue Modal -->
+<div class="modal fade" id="createIssueModal" tabindex="-1" aria-labelledby="createIssueLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content text-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createIssueLabel">Create New Issue</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" action="{% url 'issues:create' %}">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="title" class="form-label">Issue Title</label>
+            <input type="text" class="form-control" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" name="description" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" name="status">
+              <option value="backlog">Backlog</option>
+              <option value="ready">Ready</option>
+              <option value="in_progress">In Progress</option>
+              <option value="in_review">In Review</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Issue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

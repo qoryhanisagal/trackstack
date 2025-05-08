@@ -1,9 +1,9 @@
-<!-- pages/templates/pages/about.html -->
-<!DOCTYPE html>
-<html>
-<head><title>TrackStack - About</title></head>
-<body>
-  <h1>About TrackStack</h1>
-  <a href="{% url 'home' %}">Home</a>
-</body>
-</html>
+
+
+
+{% extends 'base.html' %}
+{% block title %}About{% endblock %}
+{% block content %}
+<h1>About TrackStack</h1>
+<p>TrackStack is a lightweight issue management tool built with Django, styled like GitHub Projects.</p>
+{% endblock %}

@@ -10,10 +10,11 @@ __pycache__/
 *.pyo
 *.pyd
 *.env
+.env.*
+db.sqlite3
 
 # Static & media
 staticfiles/
-media/
 
 # macOS
 .DS_Store
@@ -23,3 +24,6 @@ media/
 
 # Virtual environment
 venv/
+ENV/
+env/
+.venv/

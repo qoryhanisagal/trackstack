@@ -1,0 +1,25 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+
+# Django DB & settings
+*.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.env
+
+# Static & media
+staticfiles/
+media/
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Virtual environment
+venv/
